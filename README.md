@@ -35,3 +35,4 @@ Then visit http://localhost:5500.
 
 - Email: ghimire.9@gmail.com
 - GitHub: [@codeitR](https://github.com/codeitR)
+- LinkedIn: [Ramesh Ghimire](https://www.linkedin.com/in/ramesh-ghimire-0aa504265/)
