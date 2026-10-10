@@ -16,9 +16,8 @@
       property="og:description"
       content="Front-end developer in Norway building fast, accessible websites. Available for freelance projects.">
 
-    <!-- Colour of the browser bar on phones, for light and dark mode -->
-    <meta name="theme-color" content="#f4f4f5" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+    <!-- Colour of the browser bar on phones (matches the dark theme) -->
+    <meta name="theme-color" content="#09090b">
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
@@ -31,13 +30,11 @@
 
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Runs before the page is drawn, so dark mode doesn't flash white -->
+    <!-- Dark is the default. If the visitor picked light before, switch before the page is drawn -->
     <script>
       try {
-        const saved = localStorage.getItem('theme')
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        if (saved === 'dark' || (!saved && prefersDark)) {
-          document.documentElement.classList.add('dark')
+        if (localStorage.getItem('theme') === 'light') {
+          document.documentElement.classList.add('light')
         }
       } catch {}
     </script>
@@ -81,7 +78,7 @@
             <li><a href="#contact" class="nav-list__link">Contact</a></li>
             <li>
               <!-- aria-pressed tells screen readers whether dark mode is on -->
-              <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false">
+              <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="true">
                 <span class="visually-hidden">Dark mode</span>
                 <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
@@ -128,9 +125,9 @@
                 <!-- fetchpriority: load the main image first. width/height stop the layout jumping -->
                 <img
                   src="images/photo.jpg"
-                  alt="Portrait of Ramesh Ghimire"
-                  width="1200"
-                  height="901"
+                  alt="Ramesh Ghimire at his laptop, with code in the background"
+                  width="800"
+                  height="800"
                   fetchpriority="high">
               </div>
             </div>
@@ -182,21 +179,19 @@
             </a>
             <p class="contact__text">Available for freelance projects · Norway or remote</p>
 
-            <div class="button-group">
-              <a href="mailto:ghimire.9@gmail.com" class="btn btn--small">
+            <!-- Email and LinkedIn, centred in the card -->
+            <div class="contact__actions">
+              <!-- Copies the email address. Without JavaScript it still works as a normal mailto link -->
+              <a href="mailto:ghimire.9@gmail.com" class="btn btn--small" id="copy-email" data-email="ghimire.9@gmail.com">
                 <span class="ring ring--hover" aria-hidden="true"></span>
                 <span class="btn__label">Email me</span>
               </a>
-              <button type="button" class="btn btn--small" id="copy-email" data-email="ghimire.9@gmail.com">
-                <span class="ring ring--hover" aria-hidden="true"></span>
-                <span class="btn__label">Copy email</span>
-              </button>
-            </div>
 
-            <!-- TODO: put your real LinkedIn link here -->
-            <a href="https://www.linkedin.com/in/YOUR-PROFILE" class="contact__link" target="_blank" rel="noopener noreferrer">
-              LinkedIn ↗<span class="visually-hidden"> (opens in new tab)</span>
-            </a>
+              <!-- TODO: put your real LinkedIn link here -->
+              <a href="https://www.linkedin.com/in/YOUR-PROFILE" class="contact__link" target="_blank" rel="noopener noreferrer">
+                LinkedIn ↗<span class="visually-hidden"> (opens in new tab)</span>
+              </a>
+            </div>
 
             <!-- Screen readers announce changes in here, e.g. "Email address copied" -->
             <p class="visually-hidden" id="copy-status" aria-live="polite"></p>
@@ -349,35 +344,6 @@
               </article>
             </li>
 
-            <li>
-              <article class="project-card">
-                <!-- No screenshot: the tech names in their logo colours, like a code editor -->
-                <div class="project-card__image project-card__image--code" aria-hidden="true">
-                  <span class="code-html">HTML</span> <span class="code-plus">+</span>
-                  <span class="code-css">CSS</span> <span class="code-plus">+</span>
-                  <span class="code-js">JavaScript</span>
-                </div>
-                <div class="project-card__body">
-                  <h3 class="project-card__title">This portfolio</h3>
-                  <p class="project-card__text">
-                    The site you are looking at: a bento-grid layout in semantic HTML, modern CSS and plain JavaScript,
-                    with a light and dark theme.
-                  </p>
-                  <p class="visually-hidden">Built with:</p>
-                  <ul class="chip-list chip-list--small">
-                    <li class="chip chip--html"><svg class="chip__icon" aria-hidden="true" focusable="false"><use href="#icon-html" /></svg>HTML</li>
-                    <li class="chip chip--css"><svg class="chip__icon" aria-hidden="true" focusable="false"><use href="#icon-css" /></svg>CSS</li>
-                    <li class="chip chip--javascript"><svg class="chip__icon" aria-hidden="true" focusable="false"><use href="#icon-javascript" /></svg>JavaScript</li>
-                  </ul>
-                  <div class="button-group">
-                    <a href="https://github.com/codeitR/portofolio" class="btn btn--small" target="_blank" rel="noopener noreferrer">
-                      <span class="ring ring--hover" aria-hidden="true"></span>
-                      <span class="btn__label">Code ↗<span class="visually-hidden"> for this portfolio (opens in new tab)</span></span>
-                    </a>
-                  </div>
-                </div>
-              </article>
-            </li>
           </ul>
         </section>
       </main>

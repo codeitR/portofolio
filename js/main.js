@@ -10,16 +10,17 @@ function initThemeToggle() {
 
   const root = document.documentElement
 
-  // aria-pressed="true" tells screen readers that dark mode is on
+  // Dark is the default; the "light" class switches to the light theme.
+  // aria-pressed="true" tells screen readers that dark mode is on.
   const syncButton = () => {
-    button.setAttribute('aria-pressed', String(root.classList.contains('dark')))
+    button.setAttribute('aria-pressed', String(!root.classList.contains('light')))
   }
 
   button.addEventListener('click', () => {
-    const isDark = root.classList.toggle('dark')
+    const isLight = root.classList.toggle('light')
 
     try {
-      localStorage.setItem('theme', isDark ? 'dark' : 'light')
+      localStorage.setItem('theme', isLight ? 'light' : 'dark')
     } catch {
       // Storage can be blocked (e.g. private browsing). The toggle still works for this visit.
     }
@@ -30,7 +31,10 @@ function initThemeToggle() {
   syncButton()
 }
 
-/** "Copy email" button: copies the address and shows "Copied ✓" for 2 seconds. */
+/**
+ * "Email me" button: copies the address and shows "Copied ✓" for 2 seconds.
+ * It's a mailto link in the HTML, so it still works if JavaScript is off.
+ */
 function initCopyEmail() {
   const button = document.getElementById('copy-email')
   const status = document.getElementById('copy-status')
@@ -40,11 +44,15 @@ function initCopyEmail() {
   const originalText = label.textContent
   let resetTimer
 
-  button.addEventListener('click', async () => {
+  button.addEventListener('click', async (event) => {
+    // Stop the link from opening the mail app; we copy the address instead
+    event.preventDefault()
+
     try {
       await navigator.clipboard.writeText(button.dataset.email)
     } catch {
-      // Clipboard can be blocked. The "Email me" link still works.
+      // Copying can be blocked. Fall back to opening the mail app.
+      window.location.href = button.href
       return
     }
 

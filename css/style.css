@@ -21,23 +21,25 @@
 */
 
 /* ========== 1. Design tokens ========== */
-:root {
-  color-scheme: light;
 
-  --color-bg: #f4f4f5;
-  --color-surface: #ffffff;
-  --color-text: #18181b;
-  --color-muted: #52525b;
-  --color-border: #e4e4e7;
-  --color-accent: #4f46e5;
-  --color-link: #db2777;
+/* Dark is the default theme */
+:root {
+  color-scheme: dark;
+
+  --color-bg: #09090b;
+  --color-surface: #18181b;
+  --color-text: #fafafa;
+  --color-muted: #a1a1aa;
+  --color-border: #27272a;
+  --color-accent: #a5b4fc;
+  --color-link: #f472b6;
 
   /* Brand gradient: indigo → pink */
   --indigo: #6366f1;
   --pink: #ec4899;
   --gradient-brand: linear-gradient(135deg, #4f46e5, #db2777);
   --gradient-text: linear-gradient(90deg, var(--indigo), var(--pink));
-  --gradient-soft: linear-gradient(135deg, #eef2ff, #fdf2f8);
+  --gradient-soft: linear-gradient(135deg, #1e1b4b, #3b0a24);
 
   --font-body: 'Inter', system-ui, sans-serif;
   --font-heading: 'Space Grotesk', 'Inter', sans-serif;
@@ -48,17 +50,18 @@
   --container-width: 72rem;
 }
 
-.dark {
-  color-scheme: dark;
+/* Light theme: used when the visitor switches to it */
+.light {
+  color-scheme: light;
 
-  --color-bg: #09090b;
-  --color-surface: #18181b;
-  --color-text: #fafafa;
-  --color-muted: #a1a1aa;
-  --color-border: #27272a;
-  --color-accent: #a5b4fc;
-  --color-link: #f472b6;
-  --gradient-soft: linear-gradient(135deg, #1e1b4b, #3b0a24);
+  --color-bg: #f4f4f5;
+  --color-surface: #ffffff;
+  --color-text: #18181b;
+  --color-muted: #52525b;
+  --color-border: #e4e4e7;
+  --color-accent: #4f46e5;
+  --color-link: #db2777;
+  --gradient-soft: linear-gradient(135deg, #eef2ff, #fdf2f8);
 }
 
 /* ========== 2. Reset and base ========== */
@@ -457,13 +460,13 @@ main {
   stroke-linejoin: round;
 }
 
-/* Moon in light mode, sun in dark mode */
-.theme-toggle__icon--sun,
-.dark .theme-toggle__icon--moon {
+/* Sun in dark mode (switch to light), moon in light mode (switch to dark) */
+.theme-toggle__icon--moon,
+.light .theme-toggle__icon--sun {
   display: none;
 }
 
-.dark .theme-toggle__icon--sun {
+.light .theme-toggle__icon--moon {
   display: block;
 }
 
@@ -507,7 +510,7 @@ main {
   position: relative;
   justify-self: center;
   width: 100%;
-  max-width: 20rem;
+  max-width: 24rem;
   aspect-ratio: 1;
   padding: 2px;
   overflow: hidden;
@@ -519,17 +522,14 @@ main {
   height: 100%;
   overflow: hidden;
   border-radius: 50%;
-  background-color: #fff; /* matches the photo's own white background */
+  background-color: var(--color-surface);
 }
 
-/* Sized and moved so the face sits in the middle of the circle */
+/* The photo is square, so it simply fills the circle */
 .hero__photo-frame img {
-  position: absolute;
-  top: 6%;
-  left: -57%;
-  width: auto;
-  height: 110%;
-  max-width: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* --- Education --- */
@@ -578,8 +578,16 @@ main {
   color: var(--color-muted);
 }
 
+/* Centred both ways in the space left at the bottom of the card */
+.contact__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-block: auto;
+}
+
 .contact__link {
-  align-self: flex-start;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-link);
@@ -675,25 +683,6 @@ main {
   scale: 1.03;
 }
 
-/* Code-editor style placeholder, with each tech in its logo colour */
-.project-card__image--code {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0 0.5rem;
-  padding: 1.5rem;
-  background: #0d1117;
-  font-family: var(--font-heading);
-  font-size: 1.875rem;
-  font-weight: 700;
-}
-
-.code-html { color: #e34f26; }
-.code-css  { color: #2965f1; }
-.code-js   { color: #f7df1e; }
-.code-plus { color: rgb(255 255 255 / 0.4); }
-
 .project-card__body {
   display: flex;
   flex: 1;
@@ -782,8 +771,12 @@ main {
     grid-column: 1 / -1;
   }
 
+  .project-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .card--hero {
-    grid-template-columns: 1.4fr 1fr;
+    grid-template-columns: 1.1fr 1fr;
     padding: 2.5rem;
   }
 
@@ -793,7 +786,7 @@ main {
 
   .hero__photo {
     justify-self: end;
-    max-width: 24rem;
+    max-width: 30rem;
   }
 
   .card--about {

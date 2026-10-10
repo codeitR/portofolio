@@ -5,7 +5,7 @@ My personal portfolio: a bento-grid layout built with semantic HTML, modern CSS 
 ## Features
 
 - Semantic, accessible HTML: landmarks, one `h1`, labelled sections, skip link, screen-reader text for links that open a new tab
-- Light and dark mode that follows the system setting and remembers your choice
+- Dark theme by default, with a light theme you can switch to (your choice is remembered)
 - Responsive, mobile-first layout with CSS Grid
 - Spinning gradient rings made with `conic-gradient`, paused for visitors who prefer reduced motion
 - Tech chips with official logos, drawn once in an SVG sprite and reused with `<use>`
