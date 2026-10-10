@@ -252,6 +252,24 @@ main {
   animation: spin 6s linear infinite;
 }
 
+/* Ring in the syntax colours from the code in the photo:
+   pink keywords, yellow strings, green terminal text, cyan and blue names, purple.
+   The colours fade into a short gap, like a comet's tail, so you can see it spin. */
+.ring--code {
+  background: conic-gradient(
+    from 0deg,
+    #f472b6,
+    #facc15 15%,
+    #4ade80 30%,
+    #22d3ee 45%,
+    #60a5fa 60%,
+    #c084fc 72%,
+    transparent 85%,
+    #f472b6
+  );
+  animation-duration: 10s;
+}
+
 /* Paused until the cursor (or keyboard focus) is on the button */
 .ring--hover {
   opacity: 0.6;
